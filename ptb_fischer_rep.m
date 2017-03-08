@@ -2,7 +2,7 @@ function PTB_Fischer()
 codeVersion = '1.0';
 
 % --- DO NOT CHANGE -- %
-skipVercheck = 0; % 1 = check matlab and octave versions
+skipVercheck = 1; % 1 = check matlab and octave versions
 skipSyncTests = 0; % 1 = skip video sync tests. ALWAYS set to 0
 devMode = 0; % set development flag
 % --- END --- %
@@ -41,6 +41,9 @@ systemParams.ptbVersion =  ptbVersion;
 systemParams.systemType = computer;
 if ismac
     [~, OSversion] = system('sw_vers');
+end
+if isunix
+  [~, OSversion] = system('uname -rov');
 end
 
 try
@@ -779,7 +782,10 @@ end
         if ismac
             [~, OSversion] = system('sw_vers');
         end
-        
+        if isunix
+            [~, OSversion] = system('uname -rov');
+        end
+
         try
             if ispc
                 [~, OSversion] = system('ver');
